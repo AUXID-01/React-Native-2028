@@ -1,5 +1,5 @@
 
- type Category = {
+ export type Category = {
     id: string;
     name: string;
     image: string;
