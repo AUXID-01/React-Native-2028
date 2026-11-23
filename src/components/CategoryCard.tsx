@@ -7,6 +7,13 @@ import {
   Image,
   Pressable,
   StyleSheet,
+<<<<<<< HEAD
+=======
+  Text,
+  View,
+  Image,
+  Alert
+>>>>>>> 78e63d8 (Create Root Layout)
 } from 'react-native';
 
 import type { Category } from '@/data/categories';
@@ -16,6 +23,7 @@ type CategoryCardProps = {
   onPress: (category: Category) => void;
 };
 
+<<<<<<< HEAD
 export default function CategoryCard({
   category,
   onPress,
@@ -27,6 +35,17 @@ export default function CategoryCard({
       accessibilityRole="button"
       accessibilityLabel={`Browse ${category.name}`}
     >
+=======
+function categoryCardPress(){
+    Alert.alert("Category Pressed")
+}
+
+
+
+const CategoryCard = ({ category  , onPress}: CategoryPropTypes) => {
+  return (
+    <Pressable style={styles.card} onPress={()=>categoryCardPress()}>
+>>>>>>> 78e63d8 (Create Root Layout)
       <View style={styles.imageContainer}>
         <Image
           source={{ uri: category.image }}
