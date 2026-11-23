@@ -1,9 +1,12 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import {  StyleSheet, Text, View } from 'react-native'
 
 import { useLocalSearchParams } from 'expo-router';
 
 
 import { categories } from '@/data/categories';
+
+
+import {SafeAreaView} from "react-native-safe-area-context"
 
 
 
