@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Fresh-mart",
-    "slug": "Fresh-mart",
+    "name": "quick-kart",
+    "slug": "quick-kart",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "freshmart",
+    "scheme": "quickkart",
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon"

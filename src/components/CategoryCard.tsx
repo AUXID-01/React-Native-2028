@@ -1,41 +1,47 @@
 
 import React from 'react';
+
 import {
+  View,
+  Text as RNText,
+  Image,
   Pressable,
   StyleSheet,
-  Text,
-  View,
-  Image,
 } from 'react-native';
 
 import type { Category } from '@/data/categories';
 
-type CategoryPropTypes = {
+type CategoryCardProps = {
   category: Category;
-  // onPress: (category: Category) => void;
+  onPress: (category: Category) => void;
 };
 
-const CategoryCard = ({ category }: CategoryPropTypes) => {
+export default function CategoryCard({
+  category,
+  onPress,
+}: CategoryCardProps) {
   return (
-    <Pressable style={styles.card}>
+    <Pressable
+      style={styles.card}
+      onPress={() => onPress(category)}
+      accessibilityRole="button"
+      accessibilityLabel={`Browse ${category.name}`}
+    >
       <View style={styles.imageContainer}>
         <Image
           source={{ uri: category.image }}
           style={styles.image}
+          resizeMode="cover"
+          accessibilityLabel={category.name}
         />
       </View>
 
-      <Text
-        style={styles.name}
-        numberOfLines={2}
-      >
+      <RNText style={styles.name} numberOfLines={2}>
         {category.name}
-      </Text>
+      </RNText>
     </Pressable>
   );
-};
-
-export default CategoryCard;
+}
 
 const styles = StyleSheet.create({
   card: {
@@ -46,7 +52,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: '100%',
     aspectRatio: 1,
-    borderRadius: 16,
+    borderRadius: 14,
     backgroundColor: '#F3F4F6',
     overflow: 'hidden',
   },
@@ -54,16 +60,13 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'cover',
   },
 
   name: {
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: '600',
-    color: '#27272A',
+    color: '#18181B',
     textAlign: 'center',
-    marginTop: 10,
-    letterSpacing: 0.2,
-    lineHeight: 21,
+    marginTop: 8,
   },
 });

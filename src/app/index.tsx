@@ -1,85 +1,153 @@
 
-import React from 'react';
-import { categories } from '@/data/categories';
+import React, { useState } from 'react';
 
 import {
   View,
   Text as RNText,
   TextInput,
   StyleSheet,
+  Pressable,
   Keyboard,
   ScrollView,
+  Alert,
 } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import CategoryCard from '@/components/CategoryCard';
+import { categories, type Category } from '@/data/categories';
 
 export default function HomeScreen() {
+  // Search state
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Clear search input
+  const clearSearch = () => {
+    setSearchQuery('');
+  };
+
+  // Handle category press
+  const handleCategoryPress = (category: Category) => {
+    Alert.alert(
+      category.name,
+      `${category.name} products coming soon!`
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
 
       {/* DELIVERY HEADER */}
       <View style={styles.header}>
-        <View>
-          <RNText style={styles.brand}>
-            Fresh Mart
-          </RNText>
+
+        <View style={styles.topRow}>
+          <View style={styles.brandContainer}>
+            <RNText style={styles.brand}>
+              QUICKKART
+            </RNText>
+
+            <RNText style={styles.deliveryTime}>
+              Delivery in 10 minutes
+            </RNText>
+          </View>
+
+          <View style={styles.profileIcon}>
+            <RNText style={styles.profileEmoji}>
+              👤
+            </RNText>
+          </View>
         </View>
 
-        <View>
-          <RNText style={styles.deliveryTime}>
-            Delivery in 10 mins
-          </RNText>
-        </View>
-
-        <View>
+        <View style={styles.locationRow}>
           <RNText style={styles.locationIcon}>
-            📍 Electronic City
+            📍
           </RNText>
+
+          <View style={styles.locationDetails}>
+            <RNText style={styles.locationTitle}>
+              Home ▼
+            </RNText>
+
+            <RNText style={styles.address}>
+              Electronic City, Bengaluru
+            </RNText>
+          </View>
         </View>
       </View>
 
       {/* SEARCH SECTION */}
       <View style={styles.searchSection}>
         <View style={styles.searchContainer}>
+
           <RNText style={styles.searchIcon}>
             🔍
           </RNText>
 
           <TextInput
             style={styles.searchInput}
-            placeholder='Search "milk", "bread", "eggs"...'
+            placeholder="Search for milk, bread, fruits..."
             placeholderTextColor="#9CA3AF"
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            autoCorrect={false}
+            autoCapitalize="none"
+            returnKeyType="search"
+            accessibilityLabel="Search products"
             onSubmitEditing={() => Keyboard.dismiss()}
           />
+
+          {searchQuery.length > 0 && (
+            <Pressable
+              onPress={clearSearch}
+              style={styles.clearButton}
+              accessibilityRole="button"
+              accessibilityLabel="Clear search"
+            >
+              <RNText style={styles.clearText}>
+                ✕
+              </RNText>
+            </Pressable>
+          )}
         </View>
+
+        {searchQuery.trim().length > 0 && (
+          <RNText style={styles.searchPreview}>
+            Searching for: {searchQuery}
+          </RNText>
+        )}
       </View>
 
-      {/* SCROLLABLE CATEGORY SECTION */}
+      {/* SCROLLABLE MAIN CONTENT */}
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
       >
+
+        {/* CATEGORY SECTION */}
         <View style={styles.categorySection}>
 
           <RNText style={styles.sectionTitle}>
             Shop by Category
           </RNText>
 
-          {/* CATEGORY GRID */}
           <View style={styles.categoryGrid}>
             {categories.map((category) => (
               <View
                 key={category.id}
                 style={styles.categoryWrapper}
               >
-                <CategoryCard category={category} />
+                <CategoryCard
+                  category={category}
+                  onPress={handleCategoryPress}
+                />
               </View>
             ))}
           </View>
 
         </View>
+
       </ScrollView>
 
     </SafeAreaView>
@@ -222,27 +290,25 @@ const styles = StyleSheet.create({
 
   // CATEGORY SECTION
   categorySection: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
     paddingTop: 20,
   },
 
   sectionTitle: {
-    fontSize: 20,
-    fontWeight: '700',
+    fontSize: 21,
+    fontWeight: 'bold',
     color: '#18181B',
-    marginBottom: 20,
-    letterSpacing: 0.2,
+    marginBottom: 18,
   },
 
-  // 2-COLUMN CATEGORY GRID
   categoryGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    rowGap: 24,
+    rowGap: 20,
   },
 
   categoryWrapper: {
-    width: '50%',
-    paddingHorizontal: 7,
+    width: '33.3333%',
+    paddingHorizontal: 6,
   },
 });

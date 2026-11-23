@@ -1,5 +1,5 @@
 
- export type Category = {
+export type Category = {
     id: string;
     name: string;
     image: string;
@@ -7,7 +7,7 @@
   
   export const categories: Category[] = [
     {
-      id: "1",
+      id: '1',
       name: 'Dairy',
       image:
         'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=300',
