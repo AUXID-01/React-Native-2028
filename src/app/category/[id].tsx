@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 
 import { useLocalSearchParams } from 'expo-router';
+
 
 import { categories } from '@/data/categories';
 
@@ -15,10 +16,12 @@ const CategoryScreen = () => {
   console.log(category)
    
   return (
+    <SafeAreaView>
     <View>
-      <Text>Category with it's {id}</Text>
+      <Text>Category with it's ID {id}</Text>
        <Text>{category?.name}</Text>
     </View>
+    </SafeAreaView>
   )
 }
 

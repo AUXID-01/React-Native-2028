@@ -17,7 +17,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import CategoryCard from '@/components/CategoryCard';
 import { categories, type Category } from '@/data/categories';
 
+import {useRouter} from 'expo-router'
+
+
 export default function HomeScreen() {
+   const router = useRouter()
+
+
   // Search state
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -28,11 +34,11 @@ export default function HomeScreen() {
 
   // Handle category press
   const handleCategoryPress = (category: Category) => {
-    Alert.alert(
-      category.name,
-      `${category.name} products coming soon!`
-    );
-  };
+     router.push({
+        pathname : '/category/[id]',
+        params : {id : category.id}
+     })
+  }; 
 
   return (
     <SafeAreaView style={styles.container}>
